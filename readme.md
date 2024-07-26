@@ -3,6 +3,8 @@ Convert any RGB images (well, RGBA works too since I discard the alpha channel a
 
 Comes with easy-to-use web ui through streamlit. 
 
+Thought it'd be funny to take any picture and use that as a map in game, or for world building. 
+
 ## Quick Start
 ### Installation
 1. (Optional) consider creating a virtual environment using your favouritae package manager.
@@ -21,3 +23,9 @@ Comes with easy-to-use web ui through streamlit.
 
 ## API Usage
 Simply copy paste i2m.py and import the `image_to_map` method. Check docstring for details. 
+
+## Future Plans
+1. Add the functionalities for users to manually pick a color and assign a tile type. 
+    Easy to do in api, streamlit interface would be a mess. 
+2. Show integration. 
+    This was actually first implemented by me for one of our turn-based tile-based game in Unity, but long story. 

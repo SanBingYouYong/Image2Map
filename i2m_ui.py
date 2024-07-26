@@ -37,7 +37,6 @@ uploaded_image = st.file_uploader("Upload an image", type=["jpg", "jpeg", "png"]
 
 image = None
 if uploaded_image:
-    print(uploaded_image.name)
     image_placeholder = st.empty()
     image = Image.open(uploaded_image).convert("RGB")
     image_placeholder.image(image, caption="Uploaded image", use_column_width='auto', clamp=True, channels="RGB")
