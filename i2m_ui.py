@@ -1,6 +1,6 @@
 import streamlit as st
 from PIL import Image, ImageDraw
-from backend import partition_and_average_color, image_from_average_colors, tiles_color_knn, sample_tile_colors, image_from_tile_classes, smooth_tile_types, format_to_csv, create_zip_for_download
+from i2m import partition_and_average_color, image_from_average_colors, tiles_color_knn, sample_tile_colors, image_from_tile_classes, smooth_tile_types, format_to_csv, create_zip_for_download
 
 st.set_page_config(
     page_title="Image2Map",
@@ -52,7 +52,7 @@ if uploaded_image:
     tile_types_number = tile_col1.number_input("Number of tile types", min_value=1, value=3, key="tile_types")
     vis_tile_size = tile_col2.number_input("Visualization tile size", min_value=10, value=50, key="vis_tile_size")
     smoothing_threshold = tile_col3.number_input("Smoothing threshold", min_value=1, max_value=8, value=5, key="smoothing_threshold")
-    if st.button("Generate map"):
+    if st.button("Generate Map"):
         tiles_average_colors = partition_and_average_color(image, map_rows, map_cols)
         tiles = tiles_color_knn(tiles_average_colors, tile_types_number)
         

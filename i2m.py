@@ -112,7 +112,7 @@ def image_from_tile_classes(tile_classes, tile_colors, size_pixels=50):
 
     return image
 
-def tiles_color_knn(tiles_lab_colors, k=3):
+def tiles_color_knn(tiles_lab_colors: np.ndarray, k=3) -> np.ndarray:
     '''
     Accepts a numpy array (shape: rows*cols*3) of tile colors in LAB space and the number of classes they should be 
     classified into:
@@ -120,7 +120,6 @@ def tiles_color_knn(tiles_lab_colors, k=3):
         - Classify each tile according to the color distance to the closest representing color.
     Return a 2D numpy array of tile classes.
     '''
-    
     # Step 1: Run k-means clustering
     tlc_rows, tlc_cols, _ = tiles_lab_colors.shape
     flattened_tiles_lab_colors = tiles_lab_colors.reshape(-1, 3)
@@ -141,7 +140,7 @@ def tiles_color_knn(tiles_lab_colors, k=3):
     
     return tile_classes
 
-def smooth_tile_types(matrix, threshold):
+def smooth_tile_types(matrix: np.ndarray, threshold: int) -> np.ndarray:
     '''
     GPT Smoothing lol.
     if in neighbors exist a color that occurs more than the threshold value times, change the center color to that color.
@@ -178,13 +177,13 @@ def smooth_tile_types(matrix, threshold):
     
     return smoothed_matrix
 
-def format_to_csv(tiles):
+def format_to_csv(tiles) -> bytes:
     '''
     Accepts a 2D numpy array of tile classes and returns a string BINARY in CSV format.
     '''
     return '\n'.join([','.join(map(str, row)) for row in tiles]).encode('utf-8')
 
-def create_zip_for_download(tiles, smoothed_tiles): 
+def create_zip_for_download(tiles, smoothed_tiles) -> io.BytesIO: 
     '''
     Creates an in-memory zip file for download from streamlit. 
     '''
@@ -197,6 +196,43 @@ def create_zip_for_download(tiles, smoothed_tiles):
             zip_file.writestr(file_name, data.getvalue())
     return zip_buffer
 
+# the main function
+def image_to_map(image_path: str="./sample_image.jpg", 
+                 num_rows: int=10, num_cols: int=10, 
+                 num_tile_types: int=3, smoothing_threshold: int=5) -> np.ndarray:
+    '''
+    Accepts an image path and the number of rows and columns to partition it into, 
+    the number of tile types, and the smoothing threshold.
+    Returns the tile map in numpy 2D array
 
-# if __name__ == "__main__":
-#     sample_tile_colors(3)
+    Set smoothing_threshold to -1 for no smoothing and returning raw tile map. 
+        Smoothing: if in neighbors exist a color that occurs more than the threshold value times,
+        change the center color to that color.
+
+    Parameters:
+    - image_path: str, path to the image file
+    - num_rows: int, number of rows to partition the image into
+    - num_cols: int, number of columns to partition the image into
+    - num_tile_types: int, number of tile types to classify the tiles into
+    - smoothing_threshold: int, threshold for smoothing the tile types (set to -1 for no smoothing), recommended 3-5
+    '''
+    # Reads image
+    image = Image.open(image_path).convert("RGB")
+
+    # Partition the image into tiles
+    tiles_average_colors = partition_and_average_color(image, num_rows, num_cols)
+    
+    # Classify the tiles into different types
+    tiles = tiles_color_knn(tiles_average_colors, num_tile_types)
+    if smoothing_threshold == -1:
+        return tiles
+
+    # Optional smoothing
+    smoothed_tiles = smooth_tile_types(tiles, smoothing_threshold)
+    return smoothed_tiles
+
+
+if __name__ == "__main__":
+    print(
+        image_to_map()
+    )
