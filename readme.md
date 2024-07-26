@@ -18,14 +18,16 @@ Thought it'd be funny to take any picture and use that as a map in game, or for 
 6. Click `Generate Map` and wait for `Tile Map Visualization` and `Tile Map Download` sections to show up.
 ![visualization](md_vis.png)
 ![download](md_download.png)
-7. Download the zip file of two csv files or separate csv files directly as needed. They are both in "utf-8" format. 
+7. Download the zip file of two csv files or separate csv files directly as needed. They are both in utf-8 encoding. 
 ![csv](md_csv.png)
 
 ## API Usage
-Simply copy paste i2m.py and import the `image_to_map` method. Check docstring for details. 
+Simply copy paste `i2m.py` and import the `image_to_map` method which takes image path and returns the map as 2D numpy array. Check docstring for details. 
 
-## Future Plans
+## Future Plans (unlikely)
 1. Add the functionalities for users to manually pick a color and assign a tile type. 
     Easy to do in api, streamlit interface would be a mess. 
 2. Show integration. 
     This was actually first implemented by me for one of our turn-based tile-based game in Unity, but long story. 
+3. Tile Editor
+    Streamlit interface be like.
