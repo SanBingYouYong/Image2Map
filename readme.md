@@ -26,8 +26,8 @@ Simply copy paste `i2m.py` and import the `image_to_map` method which takes imag
 
 ## Future Plans (unlikely)
 1. Add the functionalities for users to manually pick a color and assign a tile type. 
-    Easy to do in api, streamlit interface would be a mess. 
+     - Easy to do in api, streamlit interface would be a mess. 
 2. Show integration. 
-    This was actually first implemented by me for one of our turn-based tile-based game in Unity, but long story. 
+     - This was actually first implemented by me for one of our turn-based tile-based game in Unity, but long story. 
 3. Tile Editor
-    Streamlit interface be like.
+     - Streamlit interface be like.
