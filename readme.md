@@ -8,6 +8,7 @@ Thought it'd be funny to take any picture and use that as a map in game, or for 
 ## Quick Start
 ### Installation
 1. (Optional) consider creating a virtual environment using your favouritae package manager.
+     - e.g. `conda create -n i2m python=3.10`
 2. Install dependencies with `pip install -r requirements.txt`.
 ### Usage
 3. Open web ui by running `streamlit run ./i2m_ui.py` in the project directory.
